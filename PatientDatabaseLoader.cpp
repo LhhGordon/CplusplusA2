@@ -1,4 +1,5 @@
 #include "PatientDatabaseLoader.h"
+#include "PatientFileLoader.h"
 
 #include <iomanip>
 #include <sstream>
@@ -17,6 +18,7 @@ void PatientDatabaseLoader::loadPatients(std::vector<Patient*>& patientIn){
     // we simulate loading patients from a database here.
 
     // initialise a birthday from a string. This code can be reused to when loading a birthday from a file
+    /*
     std::tm t{ };
     std::istringstream ss("18-02-1980");
     ss >> std::get_time(&t, "%d-%m-%Y");
@@ -30,6 +32,14 @@ void PatientDatabaseLoader::loadPatients(std::vector<Patient*>& patientIn){
     p->addVitals(v);
 
     patientIn.push_back(p);
+    */
+
+    PatientFileLoader loader("patients.txt");
+
+    loader.loadPatientFile();
+
+
+
 
 }
 
