@@ -34,13 +34,13 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile()
             string birthdayStr;
             string name;
             string diagnosises;
-            string vitals;
+            string vitalsStr;
 
             getline(fileString, uid, '/');
             getline(fileString, birthdayStr, '/');
             getline(fileString, name, '/');
             getline(fileString, diagnosises, '/');
-            getline(fileString, vitals, '/');
+            getline(fileString, vitalsStr, '/');
 
             //cout << "--testing--\n";
             //cout << "uid: "<< uid <<"\n";
@@ -62,37 +62,43 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile()
             getline(nameStream, lname, ',');
             getline(nameStream, fname, ',');
 
-            
+            //patient 
+            Patient* patient = new Patient(fname, lname, birthday);
 
             //diagnosis
             istringstream diagnosisStream(diagnosises);
             string diagnosis;
             while (getline(diagnosisStream, diagnosis, ','))
             {
-                
+                patient->addDiagnosis(diagnosis);
             }
 
             //vitals
-            if (vitals != "")
+            if (vitalsStr != "")
             {
-                istringstream vitalsStream(vitals);
-                
+                istringstream vitalsStream(vitalsStr);
+                string vitals;
+
+                while (getline(vitalsStream, vitals, ';'))
+                {
+                    string heartRate;
+                    string oxygenSaturation;
+                    string bodyTemperature;
+                    string brainActivity;
+
+                    istringstream eachVitalStream(vitals);
+
+                    getline(eachVitalStream, heartRate, ',');
+                    getline(eachVitalStream, oxygenSaturation, ',');
+                    getline(eachVitalStream, bodyTemperature, ',');
+                    getline(eachVitalStream, brainActivity, ',');
+
+                    patient->addVitals(new Vitals(stoi(heartRate), stoi(oxygenSaturation), stoi(bodyTemperature), stoi(brainActivity)));
+                }
             }
-
-
-
-
-
-
+            patient->debugUse();
+            patients.push_back(patient);
         }
-
-        
-
-        
-
-      
-
     }
-
     return patients;
 }

@@ -88,16 +88,6 @@ void Patient::addVitals(const Vitals* v)
 {
     _vitals.push_back(v);
     // TODO: calculate alert levels
-
-
-
-
-
-
-
-
-
-
 }
 
 const std::vector<const Vitals*> Patient::vitals() const
@@ -124,4 +114,25 @@ void Patient::setAlertLevel(AlertLevel level)
         }
         cout << endl;
     }
+}
+
+void Patient::debugUse()
+{
+    cout << "\nPatient debug test \n";
+    cout << "Name: " << _lastName << " " << _firstName << "\n";
+    cout << "Birthday: " << asctime(&_birthday);
+
+    cout << "Diagnosis: ";
+    for (auto& item : _diagnosis)
+    {
+        cout << item << ",";
+    }
+    cout << "\n";
+
+    cout << "Vital: ";
+    for (auto& item : _vitals)
+    {
+        cout << item->HR() << "," << item->SPO2() << "," << item->BT() << "," << item->BA() << ";";
+    }
+    cout << "\n";
 }
