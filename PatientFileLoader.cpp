@@ -31,24 +31,59 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile()
             istringstream fileString(line);
 
             string uid;
-            string birthday;
+            string birthdayStr;
             string name;
-            string diagnosis;
-            string vital;
+            string diagnosises;
+            string vitals;
 
             getline(fileString, uid, '/');
-            getline(fileString, birthday, '/');
+            getline(fileString, birthdayStr, '/');
             getline(fileString, name, '/');
-            getline(fileString, diagnosis, '/');
-            getline(fileString, vital, '/');
+            getline(fileString, diagnosises, '/');
+            getline(fileString, vitals, '/');
 
-            cout << "--testing--\n";
-            cout << "uid: "<< uid <<"\n";
-            cout << "birthday: " << birthday << "\n";
-            cout << "name: " << name << "\n";
-            cout << "diagnosis: " << diagnosis << "\n";
-            cout << "vital: " << vital << "\n";
-            cout << "--ending--\n";
+            //cout << "--testing--\n";
+            //cout << "uid: "<< uid <<"\n";
+            //cout << "birthday: " << birthday << "\n";
+            //cout << "name: " << name << "\n";
+            //cout << "diagnosis: " << diagnosis << "\n";
+            //cout << "vital: " << vital << "\n";
+            //cout << "--ending--\n";
+
+            //Date 
+            tm birthday = {};
+            istringstream dobStream(birthdayStr);
+            dobStream >> get_time(&birthday, "%d-%m-%Y");
+
+            //Name 
+            string fname;
+            string lname;
+            istringstream nameStream(name);
+            getline(nameStream, lname, ',');
+            getline(nameStream, fname, ',');
+
+            
+
+            //diagnosis
+            istringstream diagnosisStream(diagnosises);
+            string diagnosis;
+            while (getline(diagnosisStream, diagnosis, ','))
+            {
+                
+            }
+
+            //vitals
+            if (vitals != "")
+            {
+                istringstream vitalsStream(vitals);
+                
+            }
+
+
+
+
+
+
         }
 
         
